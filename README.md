@@ -274,6 +274,5 @@ Based on theoretical work:
 - FTCSA (Field-Tensor Cognitive Swarm Architecture)
 - Mandorla Eigenstate Fractals (Invariant Information Structures)
 
-**Built with ❤️ for the anonymous web**
-**"We're taking back the holy land!"**
+**Built with ❤️ for the anonymous web** - **"We're taking back the holy land!"**
 # Resonance • Invariance • Protection
