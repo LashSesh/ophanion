@@ -275,5 +275,5 @@ Based on theoretical work:
 - Mandorla Eigenstate Fractals (Invariant Information Structures)
 
 **Built with ❤️ for the anonymous web**
-"We're taking back the holy land!"
-*Resonance • Invariance • Protection*
+**"We're taking back the holy land!"**
+# Resonance • Invariance • Protection
