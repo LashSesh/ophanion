@@ -1,4 +1,4 @@
-# Build Instructions for TORSHIELD
+# Build Instructions for OPHANION
 
 ## Prerequisites
 
@@ -10,13 +10,13 @@
 
 ```bash
 # Clone repository
-git clone https://github.com/torshield/torshield.git
-cd torshield
+git clone https://github.com/ophanion/ophanion.git
+cd ophanion
 
 # Build release binary
 cargo build --release
 
-# Binary will be at: target/release/torshield
+# Binary will be at: target/release/ophanion
 ```
 
 ## Development Build
@@ -124,7 +124,7 @@ sudo ./install.sh
 
 The script will:
 1. Build the release binary
-2. Install to `/opt/torshield/`
+2. Install to `/opt/ophanion/`
 3. Create configuration directory
 4. Set up systemd service
 5. Configure Tor
@@ -136,21 +136,21 @@ The script will:
 cargo build --release
 
 # Create directories
-sudo mkdir -p /opt/torshield
-sudo mkdir -p /etc/torshield
-sudo mkdir -p /var/log/torshield
+sudo mkdir -p /opt/ophanion
+sudo mkdir -p /etc/ophanion
+sudo mkdir -p /var/log/ophanion
 
 # Copy binary
-sudo cp target/release/torshield /opt/torshield/
-sudo chmod +x /opt/torshield/torshield
+sudo cp target/release/ophanion /opt/ophanion/
+sudo chmod +x /opt/ophanion/ophanion
 
 # Copy configuration
-sudo cp config.toml /etc/torshield/
+sudo cp config.toml /etc/ophanion/
 
 # Install systemd service
-sudo cp torshield.service /etc/systemd/system/
+sudo cp ophanion.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable torshield
+sudo systemctl enable ophanion
 ```
 
 ## Cross-Compilation
@@ -216,12 +216,12 @@ Ensure you have sufficient resources:
 After a successful build:
 
 ```
-torshield/
+ophanion/
 ├── target/
 │   ├── debug/
-│   │   └── torshield          # Debug binary
+│   │   └── ophanion          # Debug binary
 │   └── release/
-│       └── torshield          # Release binary (optimized)
+│       └── ophanion          # Release binary (optimized)
 ├── Cargo.lock                 # Dependency lock file
 └── ...
 ```
@@ -232,28 +232,28 @@ torshield/
 
 ```bash
 # Check binary
-file target/release/torshield
+file target/release/ophanion
 # Output: ELF 64-bit LSB executable, x86-64
 
 # Check size
-ls -lh target/release/torshield
+ls -lh target/release/ophanion
 # Output: ~2.4M
 
 # Run version check
-./target/release/torshield --help
+./target/release/ophanion --help
 ```
 
 ### Run Quick Test
 
 ```bash
 # Test with default config
-./target/release/torshield --config config.toml --verbose
+./target/release/ophanion --config config.toml --verbose
 ```
 
 Expected output:
 ```
 ┌────────────────────────────────────────┐
-│     TORSHIELD v1.0                     │
+│     OPHANION v1.0                     │
 │  Resonant Monolith DDoS Protection     │
 └────────────────────────────────────────┘
 
@@ -307,15 +307,15 @@ cargo test --all
 cargo build --release
 
 # Strip binary (optional)
-strip target/release/torshield
+strip target/release/ophanion
 ```
 
 ## Support
 
-- **Build Issues**: https://github.com/torshield/torshield/issues
-- **Documentation**: https://docs.torshield.org
-- **Community**: https://forum.torshield.org
+- **Build Issues**: https://github.com/ophanion/ophanion/issues
+- **Documentation**: https://docs.ophanion.org
+- **Community**: https://forum.ophanion.org
 
 ---
 
-**Successfully built TORSHIELD? See DEPLOYMENT.md for deployment instructions.**
+**Successfully built OPHANION? See DEPLOYMENT.md for deployment instructions.**

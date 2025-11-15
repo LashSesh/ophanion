@@ -1,4 +1,4 @@
-# TORSHIELD
+# OPHANION
 
 **Resonant Monolith DDoS Protection for Tor Hidden Services**
 
@@ -7,9 +7,9 @@
 
 ## Overview
 
-TORSHIELD is a production-ready DDoS defense system specifically designed for Tor Hidden Services. Unlike clearnet services that can rely on Cloudflare or AWS Shield, hidden services operate in a hostile environment without centralized mitigation infrastructure.
+OPHANION is a production-ready DDoS defense system specifically designed for Tor Hidden Services. Unlike clearnet services that can rely on Cloudflare or AWS Shield, hidden services operate in a hostile environment without centralized mitigation infrastructure.
 
-TORSHIELD achieves **>95% attack traffic absorption** through:
+OPHANION achieves **>95% attack traffic absorption** through:
 
 - **Spectral Fingerprinting** of Tor circuit behavioral patterns
 - **Gabriel Cells** for adaptive proto-intelligent learning
@@ -76,11 +76,11 @@ Service       Sink
 ### Build from Source
 
 ```bash
-git clone https://github.com/torshield/torshield.git
-cd torshield
+git clone https://github.com/ophanion/ophanion.git
+cd ophanion
 cargo build --release
 
-# Binary will be at: target/release/torshield
+# Binary will be at: target/release/ophanion
 ```
 
 ### Configure Tor
@@ -106,7 +106,7 @@ sudo systemctl restart tor
 Create `config.toml`:
 
 ```toml
-[torshield]
+[ophanion]
 num_gabriel_cells = 64
 spectral_dim = 128
 learning_rate_alpha = 0.01
@@ -129,33 +129,33 @@ bind_address = "127.0.0.1"
 enable_metrics = true
 metrics_port = 9090
 verbose_logging = false
-log_file = "/var/log/torshield/torshield.log"
+log_file = "/var/log/ophanion/ophanion.log"
 ```
 
 ## Usage
 
-### Start TORSHIELD
+### Start OPHANION
 
 ```bash
-sudo ./target/release/torshield --config config.toml
+sudo ./target/release/ophanion --config config.toml
 ```
 
 ### With Verbose Logging
 
 ```bash
-sudo ./target/release/torshield --config config.toml --verbose
+sudo ./target/release/ophanion --config config.toml --verbose
 ```
 
 ### Monitor Metrics
 
-TORSHIELD exposes Prometheus metrics on `http://localhost:9090/metrics`:
+OPHANION exposes Prometheus metrics on `http://localhost:9090/metrics`:
 
-- `torshield_circuits_total` - Total circuits processed
-- `torshield_circuits_absorbed` - Attack circuits blocked
-- `torshield_circuits_forwarded` - Legitimate circuits passed
-- `torshield_resonance_coherence` - System coherence metric
-- `torshield_adaptive_threshold` - Current threshold value
-- `torshield_delta_gradient` - Convergence metric (→ 0 is optimal)
+- `ophanion_circuits_total` - Total circuits processed
+- `ophanion_circuits_absorbed` - Attack circuits blocked
+- `ophanion_circuits_forwarded` - Legitimate circuits passed
+- `ophanion_resonance_coherence` - System coherence metric
+- `ophanion_adaptive_threshold` - Current threshold value
+- `ophanion_delta_gradient` - Convergence metric (→ 0 is optimal)
 
 ## Performance
 
@@ -198,24 +198,24 @@ Where Ψ_Δ is the Delta-Kernel state vector representing the fusion of:
 ### Single Hidden Service
 
 ```
-Tor → TORSHIELD (8080) → Service (8081)
+Tor → OPHANION (8080) → Service (8081)
 ```
 
 ### Load-Balanced Setup
 
 ```
-Tor → TORSHIELD → Nginx → [Service1, Service2, Service3]
+Tor → OPHANION → Nginx → [Service1, Service2, Service3]
 ```
 
 ### High-Security Marketplace
 
 ```
-Tor → TORSHIELD → Client Auth → Service + Database
+Tor → OPHANION → Client Auth → Service + Database
 ```
 
 ## Troubleshooting
 
-### TORSHIELD won't start
+### OPHANION won't start
 
 **Check Tor control port**:
 ```bash
@@ -265,7 +265,7 @@ cargo tarpaulin --out Html
 ## Documentation
 
 Complete technical specification available in:
-- `TORSHIELD_Complete_Specification.pdf` - LaTeX documentation
+- `OPHANION_Complete_Specification.pdf` - LaTeX documentation
 - `docs/architecture.md` - System architecture
 - `docs/api.md` - API reference
 
@@ -280,9 +280,9 @@ Contributions welcome! Please:
 
 ## Security
 
-**Report security vulnerabilities to**: security@torshield.org
+**Report security vulnerabilities to**: security@ophanion.org
 
-**PGP Key**: Available at https://torshield.org/pgp
+**PGP Key**: Available at https://ophanion.org/pgp
 
 ## License
 
@@ -290,14 +290,14 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Citation
 
-If you use TORSHIELD in research, please cite:
+If you use OPHANION in research, please cite:
 
 ```bibtex
-@software{torshield2025,
-  title={TORSHIELD: Resonant Monolith DDoS Protection for Tor Hidden Services},
-  author={TORSHIELD Team},
+@software{ophanion2025,
+  title={OPHANION: Resonant Monolith DDoS Protection for Tor Hidden Services},
+  author={OPHANION Team},
   year={2025},
-  url={https://github.com/torshield/torshield}
+  url={https://github.com/ophanion/ophanion}
 }
 ```
 
@@ -313,15 +313,15 @@ Based on theoretical work:
 
 - [ ] v1.1: Full Tor control port integration
 - [ ] v1.2: Zero-knowledge legitimacy proofs
-- [ ] v1.3: Distributed TORSHIELD clusters
+- [ ] v1.3: Distributed OPHANION clusters
 - [ ] v2.0: URAN protocol integration
 - [ ] v2.1: Hardware FPGA acceleration
 
 ## Support
 
-- Documentation: https://docs.torshield.org
-- Community: https://forum.torshield.org
-- Issue Tracker: https://github.com/torshield/torshield/issues
+- Documentation: https://docs.ophanion.org
+- Community: https://forum.ophanion.org
+- Issue Tracker: https://github.com/ophanion/ophanion/issues
 
 ---
 

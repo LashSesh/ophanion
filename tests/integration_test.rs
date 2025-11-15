@@ -1,10 +1,10 @@
-use torshield::*;
-use torshield::spectral::SpectralEngine;
-use torshield::resonance::ResonanceEngine;
-use torshield::threshold::AdaptiveThreshold;
-use torshield::delta_kernel::DeltaKernel;
-use torshield::decision::DecisionEngine;
-use torshield::config::TorShieldSettings;
+use ophanion::*;
+use ophanion::spectral::SpectralEngine;
+use ophanion::resonance::ResonanceEngine;
+use ophanion::threshold::AdaptiveThreshold;
+use ophanion::delta_kernel::DeltaKernel;
+use ophanion::decision::DecisionEngine;
+use ophanion::config::OphanionSettings;
 use std::time::{Duration, Instant};
 use ndarray::Array1;
 
@@ -68,7 +68,7 @@ fn create_attack_circuit(id: u32) -> TorCircuitMetadata {
 
 #[test]
 fn test_full_system_integration() {
-    let config = TorShieldSettings {
+    let config = OphanionSettings {
         num_gabriel_cells: 32,
         spectral_dim: 128,
         learning_rate_alpha: 0.05,
@@ -150,7 +150,7 @@ fn test_full_system_integration() {
 
 #[test]
 fn test_adaptive_threshold_convergence() {
-    let config = TorShieldSettings {
+    let config = OphanionSettings {
         num_gabriel_cells: 16,
         spectral_dim: 128,
         learning_rate_alpha: 0.1,
@@ -211,7 +211,7 @@ fn test_adaptive_threshold_convergence() {
 
 #[test]
 fn test_delta_kernel_optimization() {
-    let config = TorShieldSettings {
+    let config = OphanionSettings {
         learning_rate_alpha: 0.01,
         decay_rate_beta: 0.001,
         initial_threshold: 0.5,
@@ -290,7 +290,7 @@ fn test_spectral_engine_consistency() {
 
 #[test]
 fn test_resonance_engine_learning() {
-    let config = TorShieldSettings {
+    let config = OphanionSettings {
         num_gabriel_cells: 16,
         spectral_dim: 128,
         learning_rate_alpha: 0.1,

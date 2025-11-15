@@ -1,5 +1,5 @@
 use crate::gabriel_cell::GabrielCluster;
-use crate::config::TorShieldSettings;
+use crate::config::OphanionSettings;
 use ndarray::Array1;
 use std::sync::Arc;
 
@@ -8,7 +8,7 @@ pub struct ResonanceEngine {
 }
 
 impl ResonanceEngine {
-    pub fn new(config: TorShieldSettings) -> Self {
+    pub fn new(config: OphanionSettings) -> Self {
         Self {
             gabriel_cluster: Arc::new(GabrielCluster::new(config)),
         }
@@ -126,10 +126,10 @@ impl ResonanceEngine {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::config::TorShieldSettings;
+    use crate::config::OphanionSettings;
     
-    fn test_config() -> TorShieldSettings {
-        TorShieldSettings {
+    fn test_config() -> OphanionSettings {
+        OphanionSettings {
             num_gabriel_cells: 16,
             spectral_dim: 32,
             learning_rate_alpha: 0.1,

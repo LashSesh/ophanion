@@ -3,9 +3,9 @@ use std::path::Path;
 use anyhow::{Context, Result};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct TorShieldConfig {
+pub struct OphanionConfig {
     #[serde(default)]
-    pub torshield: TorShieldSettings,
+    pub ophanion: OphanionSettings,
     
     #[serde(default)]
     pub tor: TorSettings,
@@ -21,7 +21,7 @@ pub struct TorShieldConfig {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct TorShieldSettings {
+pub struct OphanionSettings {
     #[serde(default = "default_gabriel_cells")]
     pub num_gabriel_cells: usize,
     
@@ -116,10 +116,10 @@ fn default_metrics_port() -> u16 { 9090 }
 fn default_max_circuits() -> usize { 10000 }
 fn default_retention() -> u64 { 3600 }
 
-impl Default for TorShieldConfig {
+impl Default for OphanionConfig {
     fn default() -> Self {
         Self {
-            torshield: TorShieldSettings::default(),
+            ophanion: OphanionSettings::default(),
             tor: TorSettings::default(),
             service: ServiceSettings::default(),
             monitoring: MonitoringSettings::default(),
@@ -128,7 +128,7 @@ impl Default for TorShieldConfig {
     }
 }
 
-impl Default for TorShieldSettings {
+impl Default for OphanionSettings {
     fn default() -> Self {
         Self {
             num_gabriel_cells: default_gabriel_cells(),
@@ -170,7 +170,7 @@ impl Default for MonitoringSettings {
             enable_metrics: default_true(),
             metrics_port: default_metrics_port(),
             verbose_logging: false,
-            log_file: Some("/var/log/torshield/torshield.log".to_string()),
+            log_file: Some("/var/log/ophanion/ophanion.log".to_string()),
         }
     }
 }
@@ -185,12 +185,12 @@ impl Default for PerformanceSettings {
     }
 }
 
-impl TorShieldConfig {
+impl OphanionConfig {
     pub fn from_file<P: AsRef<Path>>(path: P) -> Result<Self> {
         let content = std::fs::read_to_string(path.as_ref())
             .context("Failed to read config file")?;
         
-        let config: TorShieldConfig = toml::from_str(&content)
+        let config: OphanionConfig = toml::from_str(&content)
             .context("Failed to parse TOML config")?;
         
         config.validate()?;
@@ -199,19 +199,19 @@ impl TorShieldConfig {
     }
     
     pub fn validate(&self) -> Result<()> {
-        if self.torshield.num_gabriel_cells == 0 {
+        if self.ophanion.num_gabriel_cells == 0 {
             anyhow::bail!("num_gabriel_cells must be > 0");
         }
         
-        if self.torshield.spectral_dim == 0 {
+        if self.ophanion.spectral_dim == 0 {
             anyhow::bail!("spectral_dim must be > 0");
         }
         
-        if !(0.0..=1.0).contains(&self.torshield.initial_threshold) {
+        if !(0.0..=1.0).contains(&self.ophanion.initial_threshold) {
             anyhow::bail!("initial_threshold must be in range [0, 1]");
         }
         
-        if !(0.0..=1.0).contains(&self.torshield.target_absorption_rate) {
+        if !(0.0..=1.0).contains(&self.ophanion.target_absorption_rate) {
             anyhow::bail!("target_absorption_rate must be in range [0, 1]");
         }
         
@@ -225,14 +225,14 @@ mod tests {
     
     #[test]
     fn test_default_config() {
-        let config = TorShieldConfig::default();
+        let config = OphanionConfig::default();
         assert!(config.validate().is_ok());
     }
     
     #[test]
     fn test_config_validation() {
-        let mut config = TorShieldConfig::default();
-        config.torshield.num_gabriel_cells = 0;
+        let mut config = OphanionConfig::default();
+        config.ophanion.num_gabriel_cells = 0;
         
         assert!(config.validate().is_err());
     }

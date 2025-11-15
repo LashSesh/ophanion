@@ -1,15 +1,15 @@
-use crate::{GabrielCell, config::TorShieldSettings};
+use crate::{GabrielCell, config::OphanionSettings};
 use ndarray::Array1;
 use parking_lot::RwLock;
 use std::sync::Arc;
 
 pub struct GabrielCluster {
     pub cells: Arc<RwLock<Vec<GabrielCell>>>,
-    config: TorShieldSettings,
+    config: OphanionSettings,
 }
 
 impl GabrielCluster {
-    pub fn new(config: TorShieldSettings) -> Self {
+    pub fn new(config: OphanionSettings) -> Self {
         let cells = (0..config.num_gabriel_cells)
             .map(|id| GabrielCell::new(id, config.spectral_dim))
             .collect();
@@ -172,10 +172,10 @@ pub struct ClusterStatistics {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::config::TorShieldSettings;
+    use crate::config::OphanionSettings;
     
-    fn test_config() -> TorShieldSettings {
-        TorShieldSettings {
+    fn test_config() -> OphanionSettings {
+        OphanionSettings {
             num_gabriel_cells: 16,
             spectral_dim: 32,
             learning_rate_alpha: 0.1,

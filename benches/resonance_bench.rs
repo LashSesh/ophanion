@@ -1,8 +1,8 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion, BenchmarkId};
-use torshield::*;
-use torshield::spectral::SpectralEngine;
-use torshield::resonance::ResonanceEngine;
-use torshield::config::TorShieldSettings;
+use ophanion::*;
+use ophanion::spectral::SpectralEngine;
+use ophanion::resonance::ResonanceEngine;
+use ophanion::config::OphanionSettings;
 use std::time::{Duration, Instant};
 use ndarray::Array1;
 
@@ -72,7 +72,7 @@ fn bench_resonance_scoring(c: &mut Criterion) {
             BenchmarkId::from_parameter(num_cells),
             num_cells,
             |b, &num_cells| {
-                let config = TorShieldSettings {
+                let config = OphanionSettings {
                     num_gabriel_cells: num_cells,
                     spectral_dim: 128,
                     ..Default::default()
@@ -98,7 +98,7 @@ fn bench_resonance_scoring(c: &mut Criterion) {
 fn bench_knn_scoring(c: &mut Criterion) {
     let mut group = c.benchmark_group("knn_scoring");
 
-    let config = TorShieldSettings {
+    let config = OphanionSettings {
         num_gabriel_cells: 64,
         spectral_dim: 128,
         ..Default::default()
@@ -124,7 +124,7 @@ fn bench_knn_scoring(c: &mut Criterion) {
 fn bench_learning(c: &mut Criterion) {
     let mut group = c.benchmark_group("learning");
 
-    let config = TorShieldSettings {
+    let config = OphanionSettings {
         num_gabriel_cells: 64,
         spectral_dim: 128,
         learning_rate_alpha: 0.01,
@@ -154,7 +154,7 @@ fn bench_learning(c: &mut Criterion) {
 fn bench_full_pipeline(c: &mut Criterion) {
     c.bench_function("full_decision_pipeline", |b| {
         let mut spectral = SpectralEngine::new();
-        let config = TorShieldSettings::default();
+        let config = OphanionSettings::default();
         let resonance = ResonanceEngine::new(config.clone());
 
         let circuit = create_test_circuit(1, 50);

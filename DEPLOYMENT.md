@@ -1,6 +1,6 @@
-# TORSHIELD Deployment Guide
+# OPHANION Deployment Guide
 
-Complete guide for deploying TORSHIELD on a Tor Hidden Service.
+Complete guide for deploying OPHANION on a Tor Hidden Service.
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ sudo nano /etc/tor/torrc
 Add the following lines:
 
 ```
-# Enable control port for TORSHIELD
+# Enable control port for OPHANION
 ControlPort 9051
 CookieAuthentication 1
 
@@ -82,32 +82,32 @@ rustc --version
 cargo --version
 ```
 
-### Step 4: Build TORSHIELD
+### Step 4: Build OPHANION
 
 ```bash
 # Clone repository (or extract from release)
 cd /opt
-sudo git clone https://github.com/torshield/torshield.git
-cd torshield
+sudo git clone https://github.com/ophanion/ophanion.git
+cd ophanion
 
 # Build release binary
 cargo build --release
 
 # Verify binary
-ls -lh target/release/torshield
+ls -lh target/release/ophanion
 ```
 
-### Step 5: Configure TORSHIELD
+### Step 5: Configure OPHANION
 
 ```bash
 # Create configuration directory
-sudo mkdir -p /etc/torshield
+sudo mkdir -p /etc/ophanion
 
 # Copy example config
-sudo cp config.toml /etc/torshield/config.toml
+sudo cp config.toml /etc/ophanion/config.toml
 
 # Edit configuration
-sudo nano /etc/torshield/config.toml
+sudo nano /etc/ophanion/config.toml
 ```
 
 Verify these settings:
@@ -161,30 +161,30 @@ sudo systemctl restart nginx
 ### Step 7: Create Log Directory
 
 ```bash
-sudo mkdir -p /var/log/torshield
-sudo chown $USER:$USER /var/log/torshield
+sudo mkdir -p /var/log/ophanion
+sudo chown $USER:$USER /var/log/ophanion
 ```
 
-### Step 8: Start TORSHIELD
+### Step 8: Start OPHANION
 
 ```bash
-cd /opt/torshield
+cd /opt/ophanion
 
 # Test run (foreground)
-sudo ./target/release/torshield --config /etc/torshield/config.toml --verbose
+sudo ./target/release/ophanion --config /etc/ophanion/config.toml --verbose
 ```
 
 You should see:
 
 ```
 ┌────────────────────────────────────────┐
-│     TORSHIELD v1.0                     │
+│     OPHANION v1.0                     │
 │  Resonant Monolith DDoS Protection     │
 └────────────────────────────────────────┘
 
-Loading configuration from: /etc/torshield/config.toml
+Loading configuration from: /etc/ophanion/config.toml
 ✓ Configuration loaded and validated
-Initializing TORSHIELD components...
+Initializing OPHANION components...
 ✓ Spectral Engine initialized
 ✓ Resonance Engine initialized (64 Gabriel Cells)
 ✓ Adaptive Threshold initialized (θ₀ = 0.500)
@@ -198,22 +198,22 @@ Target absorption rate: 95.0%
 ### Step 9: Create Systemd Service
 
 ```bash
-sudo nano /etc/systemd/system/torshield.service
+sudo nano /etc/systemd/system/ophanion.service
 ```
 
 Add:
 
 ```ini
 [Unit]
-Description=TORSHIELD - Resonant Monolith DDoS Protection
+Description=OPHANION - Resonant Monolith DDoS Protection
 After=network.target tor.service
 Requires=tor.service
 
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/opt/torshield
-ExecStart=/opt/torshield/target/release/torshield --config /etc/torshield/config.toml
+WorkingDirectory=/opt/ophanion
+ExecStart=/opt/ophanion/target/release/ophanion --config /etc/ophanion/config.toml
 Restart=always
 RestartSec=10
 
@@ -222,7 +222,7 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/var/log/torshield
+ReadWritePaths=/var/log/ophanion
 
 [Install]
 WantedBy=multi-user.target
@@ -232,18 +232,18 @@ Enable and start:
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable torshield
-sudo systemctl start torshield
-sudo systemctl status torshield
+sudo systemctl enable ophanion
+sudo systemctl start ophanion
+sudo systemctl status ophanion
 ```
 
 ### Step 10: Verify Everything Works
 
-#### Check TORSHIELD Status
+#### Check OPHANION Status
 
 ```bash
-sudo systemctl status torshield
-sudo journalctl -u torshield -f
+sudo systemctl status ophanion
+sudo journalctl -u ophanion -f
 ```
 
 #### Check Tor Status
@@ -270,9 +270,9 @@ curl http://localhost:9090/metrics
 You should see metrics like:
 
 ```
-torshield_circuits_total 0
-torshield_resonance_coherence 0.0
-torshield_adaptive_threshold 0.5
+ophanion_circuits_total 0
+ophanion_resonance_coherence 0.0
+ophanion_adaptive_threshold 0.5
 ```
 
 ## Monitoring & Maintenance
@@ -281,39 +281,39 @@ torshield_adaptive_threshold 0.5
 
 ```bash
 # Live logs
-sudo journalctl -u torshield -f
+sudo journalctl -u ophanion -f
 
 # Last 100 lines
-sudo journalctl -u torshield -n 100
+sudo journalctl -u ophanion -n 100
 
 # Errors only
-sudo journalctl -u torshield -p err
+sudo journalctl -u ophanion -p err
 ```
 
 ### Check Metrics
 
 ```bash
-watch -n 5 'curl -s http://localhost:9090/metrics | grep torshield'
+watch -n 5 'curl -s http://localhost:9090/metrics | grep ophanion'
 ```
 
-### Restart TORSHIELD
+### Restart OPHANION
 
 ```bash
-sudo systemctl restart torshield
+sudo systemctl restart ophanion
 ```
 
-### Update TORSHIELD
+### Update OPHANION
 
 ```bash
-cd /opt/torshield
+cd /opt/ophanion
 git pull
 cargo build --release
-sudo systemctl restart torshield
+sudo systemctl restart ophanion
 ```
 
 ## Troubleshooting
 
-### Problem: TORSHIELD won't start
+### Problem: OPHANION won't start
 
 **Solution 1**: Check Tor control port
 
@@ -361,10 +361,10 @@ netstat -tlnp | grep 8081
 **Solution**: Reduce learning rate
 
 ```bash
-sudo nano /etc/torshield/config.toml
+sudo nano /etc/ophanion/config.toml
 # Change:
 learning_rate_alpha = 0.005  # Lower from 0.01
-sudo systemctl restart torshield
+sudo systemctl restart ophanion
 ```
 
 ### Problem: Too many false positives
@@ -372,10 +372,10 @@ sudo systemctl restart torshield
 **Solution**: Lower threshold
 
 ```bash
-sudo nano /etc/torshield/config.toml
+sudo nano /etc/ophanion/config.toml
 # Change:
 initial_threshold = 0.3  # Lower from 0.5
-sudo systemctl restart torshield
+sudo systemctl restart ophanion
 ```
 
 ## Advanced Configuration
@@ -383,7 +383,7 @@ sudo systemctl restart torshield
 ### High-Traffic Marketplace
 
 ```toml
-[torshield]
+[ophanion]
 num_gabriel_cells = 128
 max_tracked_circuits = 20000
 worker_threads = 4
@@ -395,7 +395,7 @@ metadata_retention = 7200  # 2 hours
 ### Maximum Security
 
 ```toml
-[torshield]
+[ophanion]
 initial_threshold = 0.3
 learning_rate_alpha = 0.005
 target_absorption_rate = 0.90  # Lower to avoid blocking users
@@ -404,7 +404,7 @@ target_absorption_rate = 0.90  # Lower to avoid blocking users
 ### Under Heavy Attack
 
 ```toml
-[torshield]
+[ophanion]
 initial_threshold = 0.7  # Aggressive
 target_absorption_rate = 0.98
 ```
@@ -425,7 +425,7 @@ Add:
 
 ```yaml
 scrape_configs:
-  - job_name: 'torshield'
+  - job_name: 'ophanion'
     static_configs:
       - targets: ['localhost:9090']
 ```
@@ -440,13 +440,13 @@ sudo systemctl restart prometheus
 
 ```bash
 #!/bin/bash
-# /usr/local/bin/torshield-monitor.sh
+# /usr/local/bin/ophanion-monitor.sh
 
 while true; do
     COHERENCE=$(curl -s localhost:9090/metrics | grep coherence | awk '{print $2}')
     ABSORPTION=$(curl -s localhost:9090/metrics | grep absorption | awk '{print $2}')
     
-    echo "$(date) | Coherence: $COHERENCE | Absorption: $ABSORPTION" >> /var/log/torshield/monitor.log
+    echo "$(date) | Coherence: $COHERENCE | Absorption: $ABSORPTION" >> /var/log/ophanion/monitor.log
     
     sleep 60
 done
@@ -456,7 +456,7 @@ done
 
 - [ ] Tor control port only accessible locally
 - [ ] Cookie authentication enabled
-- [ ] TORSHIELD runs as non-root user (if possible)
+- [ ] OPHANION runs as non-root user (if possible)
 - [ ] Firewall configured (UFW recommended)
 - [ ] Logs rotated regularly
 - [ ] Regular updates applied
@@ -473,10 +473,10 @@ done
 
 ## Support
 
-- Documentation: https://docs.torshield.org
-- Issues: https://github.com/torshield/torshield/issues
-- Community: https://forum.torshield.org
+- Documentation: https://docs.ophanion.org
+- Issues: https://github.com/ophanion/ophanion/issues
+- Community: https://forum.ophanion.org
 
 ---
 
-**Deployment complete! Your hidden service is now protected by TORSHIELD.**
+**Deployment complete! Your hidden service is now protected by OPHANION.**

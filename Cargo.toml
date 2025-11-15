@@ -1,11 +1,11 @@
 [package]
-name = "torshield"
+name = "ophanion"
 version = "1.0.0"
 edition = "2021"
-authors = ["TORSHIELD Team"]
+authors = ["Ophanion Team"]
 description = "Resonant Monolith DDoS Protection for Tor Hidden Services"
 license = "MIT"
-repository = "https://github.com/torshield/torshield"
+repository = "https://github.com/LashSesh/ophanion"
 
 [dependencies]
 tokio = { version = "1.35", features = ["full"] }
@@ -40,7 +40,7 @@ codegen-units = 1
 strip = true
 
 [[bin]]
-name = "torshield"
+name = "ophanion"
 path = "src/main.rs"
 
 [[bench]]

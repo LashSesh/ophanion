@@ -1,10 +1,10 @@
 #!/bin/bash
-# TORSHIELD Installation Script
+# OPHANION Installation Script
 
 set -e
 
 echo "┌────────────────────────────────────────┐"
-echo "│   TORSHIELD Installation Script        │"
+echo "│   OPHANION Installation Script        │"
 echo "│   Resonant Monolith DDoS Protection    │"
 echo "└────────────────────────────────────────┘"
 echo ""
@@ -34,36 +34,36 @@ if ! command -v tor &> /dev/null; then
 fi
 echo "✓ Tor found: $(tor --version | head -1)"
 
-# Build TORSHIELD
+# Build OPHANION
 echo ""
-echo "[2/8] Building TORSHIELD..."
+echo "[2/8] Building OPHANION..."
 cargo build --release
 echo "✓ Build complete"
 
 # Create directories
 echo ""
 echo "[3/8] Creating directories..."
-mkdir -p /opt/torshield
-mkdir -p /etc/torshield
-mkdir -p /var/log/torshield
-chown -R $SUDO_USER:$SUDO_USER /var/log/torshield
+mkdir -p /opt/ophanion
+mkdir -p /etc/ophanion
+mkdir -p /var/log/ophanion
+chown -R $SUDO_USER:$SUDO_USER /var/log/ophanion
 echo "✓ Directories created"
 
 # Copy binary
 echo ""
 echo "[4/8] Installing binary..."
-cp target/release/torshield /opt/torshield/torshield
-chmod +x /opt/torshield/torshield
-echo "✓ Binary installed to /opt/torshield/torshield"
+cp target/release/ophanion /opt/ophanion/ophanion
+chmod +x /opt/ophanion/ophanion
+echo "✓ Binary installed to /opt/ophanion/ophanion"
 
 # Copy configuration
 echo ""
 echo "[5/8] Installing configuration..."
-if [ ! -f /etc/torshield/config.toml ]; then
-    cp config.toml /etc/torshield/config.toml
-    echo "✓ Configuration installed to /etc/torshield/config.toml"
+if [ ! -f /etc/ophanion/config.toml ]; then
+    cp config.toml /etc/ophanion/config.toml
+    echo "✓ Configuration installed to /etc/ophanion/config.toml"
 else
-    echo "⚠ Configuration already exists at /etc/torshield/config.toml (skipping)"
+    echo "⚠ Configuration already exists at /etc/ophanion/config.toml (skipping)"
 fi
 
 # Configure Tor
@@ -73,7 +73,7 @@ echo "[6/8] Configuring Tor..."
 TORRC="/etc/tor/torrc"
 if ! grep -q "ControlPort 9051" "$TORRC"; then
     echo "" >> "$TORRC"
-    echo "# TORSHIELD Configuration" >> "$TORRC"
+    echo "# OPHANION Configuration" >> "$TORRC"
     echo "ControlPort 9051" >> "$TORRC"
     echo "CookieAuthentication 1" >> "$TORRC"
     systemctl restart tor
@@ -85,9 +85,9 @@ fi
 # Install systemd service
 echo ""
 echo "[7/8] Installing systemd service..."
-cp torshield.service /etc/systemd/system/torshield.service
+cp ophanion.service /etc/systemd/system/ophanion.service
 systemctl daemon-reload
-systemctl enable torshield
+systemctl enable ophanion
 echo "✓ Systemd service installed and enabled"
 
 # Display next steps
@@ -95,22 +95,22 @@ echo ""
 echo "[8/8] Installation complete!"
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "  TORSHIELD has been installed!"
+echo "  OPHANION has been installed!"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "Next steps:"
 echo ""
 echo "1. Edit configuration:"
-echo "   sudo nano /etc/torshield/config.toml"
+echo "   sudo nano /etc/ophanion/config.toml"
 echo ""
-echo "2. Start TORSHIELD:"
-echo "   sudo systemctl start torshield"
+echo "2. Start OPHANION:"
+echo "   sudo systemctl start ophanion"
 echo ""
 echo "3. Check status:"
-echo "   sudo systemctl status torshield"
+echo "   sudo systemctl status ophanion"
 echo ""
 echo "4. View logs:"
-echo "   sudo journalctl -u torshield -f"
+echo "   sudo journalctl -u ophanion -f"
 echo ""
 echo "5. Check metrics:"
 echo "   curl http://localhost:9090/metrics"

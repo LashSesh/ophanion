@@ -1,14 +1,14 @@
-use crate::config::TorShieldSettings;
+use crate::config::OphanionSettings;
 
 pub struct DeltaKernel {
-    config: TorShieldSettings,
+    config: OphanionSettings,
     pub alpha: f64,
     pub beta: f64,
     pub theta: f64,
 }
 
 impl DeltaKernel {
-    pub fn new(config: TorShieldSettings) -> Self {
+    pub fn new(config: OphanionSettings) -> Self {
         Self {
             alpha: config.learning_rate_alpha,
             beta: config.decay_rate_beta,
@@ -68,7 +68,7 @@ mod tests {
     
     #[test]
     fn test_delta_kernel() {
-        let config = TorShieldSettings::default();
+        let config = OphanionSettings::default();
         let mut kernel = DeltaKernel::new(config);
         
         let coherence = 0.7;

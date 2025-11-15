@@ -1,11 +1,11 @@
-use torshield::*;
+use ophanion::*;
 use std::sync::Arc;
 use tokio::time::{interval, Duration};
 use tracing::{info, warn, debug};
 use clap::Parser;
 
 #[derive(Parser, Debug)]
-#[clap(name = "torshield")]
+#[clap(name = "ophanion")]
 #[clap(about = "Resonant Monolith DDoS Protection for Tor Hidden Services", long_about = None)]
 struct Args {
     /// Configuration file path
@@ -28,35 +28,35 @@ async fn main() -> anyhow::Result<()> {
         .init();
     
     info!("┌────────────────────────────────────────┐");
-    info!("│     TORSHIELD v1.0                     │");
+    info!("│     OPHANION v1.0                     │");
     info!("│  Resonant Monolith DDoS Protection     │");
     info!("└────────────────────────────────────────┘");
     info!("");
     
     // Load configuration
     info!("Loading configuration from: {}", args.config);
-    let config = config::TorShieldConfig::from_file(&args.config)?;
+    let config = config::OphanionConfig::from_file(&args.config)?;
     info!("✓ Configuration loaded and validated");
     
     // Initialize components
-    info!("Initializing TORSHIELD components...");
+    info!("Initializing OPHANION components...");
     
     let _spectral_engine = spectral::SpectralEngine::new();
     info!("✓ Spectral Engine initialized");
 
     let resonance_engine = Arc::new(
-        resonance::ResonanceEngine::new(config.torshield.clone())
+        resonance::ResonanceEngine::new(config.ophanion.clone())
     );
     info!("✓ Resonance Engine initialized ({} Gabriel Cells)", 
-          config.torshield.num_gabriel_cells);
+          config.ophanion.num_gabriel_cells);
     
     let adaptive_threshold = Arc::new(
-        threshold::AdaptiveThreshold::new(config.torshield.clone())
+        threshold::AdaptiveThreshold::new(config.ophanion.clone())
     );
     info!("✓ Adaptive Threshold initialized (θ₀ = {:.3})", 
-          config.torshield.initial_threshold);
+          config.ophanion.initial_threshold);
     
-    let mut delta_kernel = delta_kernel::DeltaKernel::new(config.torshield.clone());
+    let mut delta_kernel = delta_kernel::DeltaKernel::new(config.ophanion.clone());
     info!("✓ Delta-Kernel Optimizer initialized");
     
     let decision_engine = Arc::new(parking_lot::Mutex::new(
@@ -67,7 +67,7 @@ async fn main() -> anyhow::Result<()> {
     info!("");
     info!("All components initialized successfully!");
     info!("Target absorption rate: {:.1}%", 
-          config.torshield.target_absorption_rate * 100.0);
+          config.ophanion.target_absorption_rate * 100.0);
     info!("");
     
     // Spawn maintenance task
@@ -146,10 +146,10 @@ async fn main() -> anyhow::Result<()> {
         _ = tokio::signal::ctrl_c() => {
             info!("");
             info!("Shutdown signal received");
-            info!("TORSHIELD stopping gracefully...");
+            info!("OPHANION stopping gracefully...");
         }
     }
     
-    info!("TORSHIELD stopped.");
+    info!("OPHANION stopped.");
     Ok(())
 }

@@ -1,16 +1,16 @@
-# TORSHIELD - Projektübersicht und Zusammenfassung
+# OPHANION - Projektübersicht und Zusammenfassung
 
 ## Projektstruktur
 
-Diese Dokumentation enthält eine vollständige, produktionsfähige Implementierung von TORSHIELD - einem Resonant Monolith-basierten DDoS-Schutz für Tor Hidden Services.
+Diese Dokumentation enthält eine vollständige, produktionsfähige Implementierung von OPHANION - einem Resonant Monolith-basierten DDoS-Schutz für Tor Hidden Services.
 
 ### Enthaltene Dateien
 
 ```
-TORSHIELD_Complete_Specification.tex   # Vollständige mathematische Spezifikation
+OPHANION_Complete_Specification.tex   # Vollständige mathematische Spezifikation
                                        # (LaTeX-Dokument für Overleaf)
 
-torshield/                             # Rust-Implementierung
+ophanion/                             # Rust-Implementierung
 ├── Cargo.toml                         # Projektdefinition & Dependencies
 ├── README.md                          # Hauptdokumentation
 ├── DEPLOYMENT.md                      # Deployment-Anleitung
@@ -143,7 +143,7 @@ lim(t→∞) FloodEnergy(t) = 0
                         │
                         ▼ (Port 80 auf .onion)
             ┌───────────────────────┐
-            │   TORSHIELD Process   │
+            │   OPHANION Process   │
             │   (Port 8080)         │
             │                       │
             │  [Resonanzfilterung]  │
@@ -181,15 +181,15 @@ Getestete Szenarien:
 
 ```bash
 # 1. Projekt bauen
-cd torshield
+cd ophanion
 cargo build --release
 
 # 2. Konfiguration anpassen
-cp config.toml /etc/torshield/config.toml
-nano /etc/torshield/config.toml
+cp config.toml /etc/ophanion/config.toml
+nano /etc/ophanion/config.toml
 
-# 3. TORSHIELD starten
-./target/release/torshield --config /etc/torshield/config.toml
+# 3. OPHANION starten
+./target/release/ophanion --config /etc/ophanion/config.toml
 ```
 
 ### Monitoring
@@ -199,7 +199,7 @@ nano /etc/torshield/config.toml
 curl http://localhost:9090/metrics
 
 # Logs verfolgen
-tail -f /var/log/torshield/torshield.log
+tail -f /var/log/ophanion/ophanion.log
 ```
 
 ## Wichtige Konfigurationsparameter
@@ -246,7 +246,7 @@ target_absorption_rate = 0.98
 
 1. **v1.1**: Vollständige Tor Control Port Integration
 2. **v1.2**: Zero-Knowledge Legitimacy Proofs
-3. **v1.3**: Distributed TORSHIELD Clusters
+3. **v1.3**: Distributed OPHANION Clusters
 4. **v2.0**: URAN Protocol Integration
 5. **v2.1**: Hardware FPGA Acceleration
 
@@ -283,7 +283,7 @@ wobei:
 
 ### Anonymitäts-Erhaltung
 
-TORSHIELD arbeitet ausschließlich mit:
+OPHANION arbeitet ausschließlich mit:
 - Circuit-Level Metadaten (Timings, Sequenzen)
 - Statistischen Features
 - Spektralen Signaturen
@@ -296,10 +296,10 @@ TORSHIELD arbeitet ausschließlich mit:
 ### Theorem
 
 ```
-Anonymity_Set(TORSHIELD) = Anonymity_Set(Tor)
+Anonymity_Set(OPHANION) = Anonymity_Set(Tor)
 ```
 
-TORSHIELD reduziert nicht die Anonymität von legitimen Nutzern.
+OPHANION reduziert nicht die Anonymität von legitimen Nutzern.
 
 ## Tests & Qualitätssicherung
 
@@ -337,4 +337,4 @@ Dieses Projekt liefert:
 ---
 
 *Resonanz • Invarianz • Schutz*  
-**TORSHIELD - Defending the Digital Borderlands**
+**OPHANION - Defending the Digital Borderlands**

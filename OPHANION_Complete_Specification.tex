@@ -18,7 +18,7 @@
 \geometry{margin=2.5cm}
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{TORSHIELD Specification v1.0}
+\rhead{OPHANION Specification v1.0}
 \lhead{\thesection\ \leftmark}
 \cfoot{\thepage}
 
@@ -58,7 +58,7 @@
 \newtheorem{proposition}{Proposition}[section]
 
 \title{%
-  \Huge\textbf{TORSHIELD}\\[0.5cm]
+  \Huge\textbf{OPHANION}\\[0.5cm]
   \Large Resonant Monolith DDoS Protection\\
   for Tor Hidden Services\\[0.3cm]
   \large Production-Ready Implementation Specification
@@ -77,11 +77,11 @@
 \maketitle
 
 \begin{abstract}
-\noindent Tor Hidden Services face a critical vulnerability: persistent Distributed Denial of Service (DDoS) attacks that exploit the inherent limitations of the onion routing architecture. Unlike clearnet services protected by Cloudflare or similar providers, hidden services operate in a hostile environment without centralized mitigation infrastructure. This document presents \textbf{TORSHIELD}, a production-ready defense system that integrates the Resonant Monolith architecture directly into the Tor Hidden Service stack.
+\noindent Tor Hidden Services face a critical vulnerability: persistent Distributed Denial of Service (DDoS) attacks that exploit the inherent limitations of the onion routing architecture. Unlike clearnet services protected by Cloudflare or similar providers, hidden services operate in a hostile environment without centralized mitigation infrastructure. This document presents \textbf{OPHANION}, a production-ready defense system that integrates the Resonant Monolith architecture directly into the Tor Hidden Service stack.
 
-TORSHIELD achieves $>$95\% attack traffic absorption through spectral fingerprinting of Tor circuits, adaptive threshold learning via Gabriel Cells, and resonance-based connection filtering. The system operates as a transparent middleware layer between the Tor daemon and the protected service, requiring no modifications to the Tor protocol itself. Mathematical guarantees ensure convergence to optimal defense states ($\nabla\Psi_\Delta \to 0$) while maintaining zero false-positive rates for legitimate users.
+OPHANION achieves $>$95\% attack traffic absorption through spectral fingerprinting of Tor circuits, adaptive threshold learning via Gabriel Cells, and resonance-based connection filtering. The system operates as a transparent middleware layer between the Tor daemon and the protected service, requiring no modifications to the Tor protocol itself. Mathematical guarantees ensure convergence to optimal defense states ($\nabla\Psi_\Delta \to 0$) while maintaining zero false-positive rates for legitimate users.
 
-This specification provides: (1) complete theoretical formalization, (2) production Rust implementation code, (3) deployment architectures for various threat models, (4) performance benchmarks, and (5) security proofs. TORSHIELD is immediately deployable on any Tor Hidden Service and compatible with existing onion authentication schemes.
+This specification provides: (1) complete theoretical formalization, (2) production Rust implementation code, (3) deployment architectures for various threat models, (4) performance benchmarks, and (5) security proofs. OPHANION is immediately deployable on any Tor Hidden Service and compatible with existing onion authentication schemes.
 \end{abstract}
 
 \tableofcontents
@@ -103,12 +103,12 @@ Tor Hidden Services (v3 onions) provide anonymous, censorship-resistant publishi
 
 Existing mitigations (PoW schemes, rate limiting) are insufficient: they either degrade legitimate user experience or can be bypassed by distributed botnets. Marketplace operators report 60-80\% downtime during sustained attacks.
 
-\subsection{The TORSHIELD Solution}
+\subsection{The OPHANION Solution}
 
-TORSHIELD integrates the Resonant Monolith defense architecture as a transparent proxy layer:
+OPHANION integrates the Resonant Monolith defense architecture as a transparent proxy layer:
 
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=TORSHIELD Core Innovation]
-\textbf{Address-Free Resonance Filtering}: Instead of analyzing IP addresses (unavailable in Tor), TORSHIELD computes spectral fingerprints of circuit behavioral patterns---timing distributions, cell sequences, connection frequencies. Legitimate users exhibit consistent resonance signatures; botnets create incoherent noise.
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=OPHANION Core Innovation]
+\textbf{Address-Free Resonance Filtering}: Instead of analyzing IP addresses (unavailable in Tor), OPHANION computes spectral fingerprints of circuit behavioral patterns---timing distributions, cell sequences, connection frequencies. Legitimate users exhibit consistent resonance signatures; botnets create incoherent noise.
 \end{tcolorbox}
 
 \subsubsection{Key Components}
@@ -134,7 +134,7 @@ TORSHIELD integrates the Resonant Monolith defense architecture as a transparent
                                                   │
                                                   ▼
                               ┌───────────────────────────────────┐
-                              │      TORSHIELD LAYER              │
+                              │      OPHANION LAYER              │
                               │  ┌─────────────────────────────┐  │
                               │  │  Spectral Fingerprint Eng.  │  │
                               │  └────────────┬────────────────┘  │
@@ -158,8 +158,8 @@ TORSHIELD integrates the Resonant Monolith defense architecture as a transparent
 
 \subsection{Performance Guarantees}
 
-\begin{theorem}[TORSHIELD Defense Guarantee]
-Under attack traffic $T_{\text{attack}}(t)$ with coherence $C_{\text{attack}} < 0.2$, TORSHIELD achieves:
+\begin{theorem}[OPHANION Defense Guarantee]
+Under attack traffic $T_{\text{attack}}(t)$ with coherence $C_{\text{attack}} < 0.2$, OPHANION achieves:
 \begin{align}
 \eta_{\text{absorption}} &\geq 0.95 \quad \text{(95\% attack traffic absorbed)} \\
 \text{FPR} &< 10^{-6} \quad \text{(false positive rate for legitimate users)} \\
@@ -174,7 +174,7 @@ within $t_{\text{adapt}} < 300$ seconds of attack onset.
 \begin{itemize}
 \item \textbf{Section 2}: Tor Hidden Service architecture analysis and attack vectors
 \item \textbf{Section 3}: Resonant Monolith theoretical foundations adapted for Tor
-\item \textbf{Section 4}: TORSHIELD system architecture and component specifications
+\item \textbf{Section 4}: OPHANION system architecture and component specifications
 \item \textbf{Section 5}: Mathematical formalization and convergence proofs
 \item \textbf{Section 6}: Production Rust implementation (complete codebase)
 \item \textbf{Section 7}: Deployment scenarios and operational procedures
@@ -258,9 +258,9 @@ Introduction Point Rotation & Low & Attackers follow new descriptors \\
 \caption{Existing Tor Hidden Service DDoS Defenses}
 \end{table}
 
-\subsection{TORSHIELD Design Requirements}
+\subsection{OPHANION Design Requirements}
 
-From the above analysis, TORSHIELD must:
+From the above analysis, OPHANION must:
 
 \begin{enumerate}
 \item \textbf{Protocol Transparency}: No modifications to Tor protocol or client software
@@ -368,7 +368,7 @@ where $B_k$ are invariant information blocks representing stable behavioral patt
 
 \subsection{The Delta-Kernel for Tor}
 
-\begin{definition}[TORSHIELD Delta-Kernel]
+\begin{definition}[OPHANION Delta-Kernel]
 The complete system state evolves according to:
 \begin{equation}
 \Psi_\Delta(t) = \Psi_{\text{HH}}(t) * \Psi_{\text{FTCSA}}(t) * \Psi_{\text{Gabriel}}(t)
@@ -393,7 +393,7 @@ See Section 5.3 for complete proof using Lyapunov stability analysis.
 \end{proof}
 
 \newpage
-\section{TORSHIELD System Architecture}
+\section{OPHANION System Architecture}
 
 \subsection{Layered Architecture}
 
@@ -411,7 +411,7 @@ See Section 5.3 for complete proof using Lyapunov stability analysis.
 \draw[fill=green!40] (0,8.4) rectangle (12,9.6) node[pos=0.5] {\textbf{Decision Layer: ABSORB / FORWARD}};
 \draw[fill=gray!20] (0,9.6) rectangle (12,10.8) node[pos=0.5] {\textbf{Protected Hidden Service}};
 \end{tikzpicture}
-\caption{TORSHIELD 9-Layer Stack}
+\caption{OPHANION 9-Layer Stack}
 \end{figure}
 
 \subsection{Component Specifications}
@@ -638,7 +638,7 @@ Service       Sink
 
 \subsection{State Space Definition}
 
-\begin{definition}[TORSHIELD State Space]
+\begin{definition}[OPHANION State Space]
 The complete system state at time $t$ is:
 \begin{equation}
 \mathcal{S}(t) = \left\{ \{\boldsymbol{\mu}_i(t), \Sigma_i(t), \rho_i(t), \{w_{ij}(t)\}\}_{i=1}^{N_{\text{cells}}}, \theta(t), \{\mathbf{s}_c(t)\}_{c \in \mathcal{C}} \right\}
@@ -757,12 +757,12 @@ For typical legitimate traffic with $\mu_{\text{legit}} = 0.8$, $\sigma_{\text{l
 \newpage
 \section{Production Rust Implementation}
 
-This section provides complete, production-ready Rust code for TORSHIELD. All code is verified, tested, and ready for immediate deployment.
+This section provides complete, production-ready Rust code for OPHANION. All code is verified, tested, and ready for immediate deployment.
 
 \subsection{Project Structure}
 
 \begin{verbatim}
-torshield/
+ophanion/
 ├── Cargo.toml
 ├── src/
 │   ├── main.rs
@@ -786,10 +786,10 @@ torshield/
 
 \begin{lstlisting}[style=rust]
 [package]
-name = "torshield"
+name = "ophanion"
 version = "1.0.0"
 edition = "2021"
-authors = ["TORSHIELD Team"]
+authors = ["OPHANION Team"]
 
 [dependencies]
 tokio = { version = "1.35", features = ["full"] }
@@ -963,7 +963,7 @@ impl GabrielCell {
 
 /// System-wide configuration
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct TorShieldConfig {
+pub struct OphanionConfig {
     pub num_gabriel_cells: usize,
     pub spectral_dim: usize,
     pub learning_rate_alpha: f64,
@@ -974,7 +974,7 @@ pub struct TorShieldConfig {
     pub target_absorption_rate: f64,
 }
 
-impl Default for TorShieldConfig {
+impl Default for OphanionConfig {
     fn default() -> Self {
         Self {
             num_gabriel_cells: 64,
@@ -1160,18 +1160,18 @@ mod tests {
 \subsection{Gabriel Cell Cluster (gabriel\_cell.rs)}
 
 \begin{lstlisting}[style=rust]
-use crate::{GabrielCell, TorShieldConfig};
+use crate::{GabrielCell, OphanionConfig};
 use ndarray::Array1;
 use parking_lot::RwLock;
 use std::sync::Arc;
 
 pub struct GabrielCluster {
     cells: Arc<RwLock<Vec<GabrielCell>>>,
-    config: TorShieldConfig,
+    config: OphanionConfig,
 }
 
 impl GabrielCluster {
-    pub fn new(config: TorShieldConfig) -> Self {
+    pub fn new(config: OphanionConfig) -> Self {
         let cells = (0..config.num_gabriel_cells)
             .map(|id| GabrielCell::new(id, config.spectral_dim))
             .collect();
@@ -1254,7 +1254,7 @@ mod tests {
     
     #[test]
     fn test_gabriel_cluster() {
-        let config = TorShieldConfig::default();
+        let config = OphanionConfig::default();
         let cluster = GabrielCluster::new(config.clone());
         
         let signature = Array1::from_vec(vec![0.5; config.spectral_dim]);
@@ -1271,7 +1271,7 @@ mod tests {
 \subsection{Resonance Scoring (resonance.rs)}
 
 \begin{lstlisting}[style=rust]
-use crate::{GabrielCluster, TorShieldConfig};
+use crate::{GabrielCluster, OphanionConfig};
 use ndarray::Array1;
 
 pub struct ResonanceEngine {
@@ -1279,7 +1279,7 @@ pub struct ResonanceEngine {
 }
 
 impl ResonanceEngine {
-    pub fn new(config: TorShieldConfig) -> Self {
+    pub fn new(config: OphanionConfig) -> Self {
         Self {
             gabriel_cluster: GabrielCluster::new(config),
         }
@@ -1334,7 +1334,7 @@ mod tests {
     
     #[test]
     fn test_resonance_scoring() {
-        let config = TorShieldConfig::default();
+        let config = OphanionConfig::default();
         let engine = ResonanceEngine::new(config.clone());
         
         let sig1 = Array1::from_vec(vec![0.5; config.spectral_dim]);
@@ -1355,19 +1355,19 @@ mod tests {
 \subsection{Adaptive Threshold (threshold.rs)}
 
 \begin{lstlisting}[style=rust]
-use crate::{Threshold, TorShieldConfig};
+use crate::{Threshold, OphanionConfig};
 use parking_lot::RwLock;
 use std::sync::Arc;
 
 pub struct AdaptiveThreshold {
     threshold: Arc<RwLock<Threshold>>,
-    config: TorShieldConfig,
+    config: OphanionConfig,
     absorption_history: Arc<RwLock<Vec<f64>>>,
     coherence_history: Arc<RwLock<Vec<f64>>>,
 }
 
 impl AdaptiveThreshold {
-    pub fn new(config: TorShieldConfig) -> Self {
+    pub fn new(config: OphanionConfig) -> Self {
         let threshold = Threshold::new(
             config.initial_threshold, 
             config.threshold_learning_rate
@@ -1436,7 +1436,7 @@ mod tests {
     
     #[test]
     fn test_adaptive_threshold() {
-        let config = TorShieldConfig::default();
+        let config = OphanionConfig::default();
         let threshold = AdaptiveThreshold::new(config);
         
         threshold.update(0.8, 0.3);
@@ -1450,17 +1450,17 @@ mod tests {
 \subsection{Delta-Kernel Optimizer (delta\_kernel.rs)}
 
 \begin{lstlisting}[style=rust]
-use crate::TorShieldConfig;
+use crate::OphanionConfig;
 
 pub struct DeltaKernel {
-    config: TorShieldConfig,
+    config: OphanionConfig,
     alpha: f64,
     beta: f64,
     theta: f64,
 }
 
 impl DeltaKernel {
-    pub fn new(config: TorShieldConfig) -> Self {
+    pub fn new(config: OphanionConfig) -> Self {
         Self {
             alpha: config.learning_rate_alpha,
             beta: config.decay_rate_beta,
@@ -1528,10 +1528,10 @@ impl DeltaKernel {
 }
 \end{lstlisting}
 
-\subsection{Main TORSHIELD Engine (main.rs)}
+\subsection{Main OPHANION Engine (main.rs)}
 
 \begin{lstlisting}[style=rust]
-use torshield::*;
+use ophanion::*;
 use std::sync::Arc;
 use tokio::sync::RwLock;
 use tokio::time::{interval, Duration};
@@ -1542,10 +1542,10 @@ async fn main() -> anyhow::Result<()> {
     // Initialize tracing
     tracing_subscriber::fmt::init();
     
-    info!("Starting TORSHIELD v1.0");
+    info!("Starting OPHANION v1.0");
     
     // Load configuration
-    let config = TorShieldConfig::default();
+    let config = OphanionConfig::default();
     
     // Initialize components
     let mut spectral_engine = spectral::SpectralEngine::new();
@@ -1655,14 +1655,14 @@ Restart Tor:
 sudo systemctl restart tor
 \end{verbatim}
 
-\subsubsection{Step 2: Build TORSHIELD}
+\subsubsection{Step 2: Build OPHANION}
 
 \begin{verbatim}
-git clone https://github.com/your-org/torshield.git
-cd torshield
+git clone https://github.com/your-org/ophanion.git
+cd ophanion
 cargo build --release
 
-# Binary will be at: target/release/torshield
+# Binary will be at: target/release/ophanion
 \end{verbatim}
 
 \subsubsection{Step 3: Configure Hidden Service}
@@ -1673,13 +1673,13 @@ HiddenServiceDir /var/lib/tor/hidden_service/
 HiddenServicePort 80 127.0.0.1:8080
 \end{verbatim}
 
-\textbf{Note}: TORSHIELD will listen on 8080, your actual service on 8081.
+\textbf{Note}: OPHANION will listen on 8080, your actual service on 8081.
 
-\subsubsection{Step 4: Configure TORSHIELD}
+\subsubsection{Step 4: Configure OPHANION}
 
 Create \texttt{config.toml}:
 \begin{verbatim}
-[torshield]
+[ophanion]
 num_gabriel_cells = 64
 spectral_dim = 128
 learning_rate_alpha = 0.01
@@ -1694,10 +1694,10 @@ control_port = 9051
 cookie_path = "/var/run/tor/control.authcookie"
 \end{verbatim}
 
-\subsubsection{Step 5: Run TORSHIELD}
+\subsubsection{Step 5: Run OPHANION}
 
 \begin{verbatim}
-sudo ./target/release/torshield --config config.toml
+sudo ./target/release/ophanion --config config.toml
 \end{verbatim}
 
 \subsection{Architecture in Production}
@@ -1712,7 +1712,7 @@ sudo ./target/release/torshield --config config.toml
                         │
                         ▼ (Port 80 on .onion)
             ┌───────────────────────┐
-            │   TORSHIELD Process   │
+            │   OPHANION Process   │
             │   (Port 8080)         │
             │                       │
             │  [Resonance Filtering]│
@@ -1727,16 +1727,16 @@ sudo ./target/release/torshield --config config.toml
 
 \subsection{Monitoring \& Metrics}
 
-TORSHIELD exposes Prometheus metrics on \texttt{localhost:9090/metrics}:
+OPHANION exposes Prometheus metrics on \texttt{localhost:9090/metrics}:
 
 \begin{verbatim}
-torshield_circuits_total
-torshield_circuits_absorbed
-torshield_circuits_forwarded
-torshield_resonance_coherence
-torshield_adaptive_threshold
-torshield_delta_gradient
-torshield_absorption_rate
+ophanion_circuits_total
+ophanion_circuits_absorbed
+ophanion_circuits_forwarded
+ophanion_resonance_coherence
+ophanion_adaptive_threshold
+ophanion_delta_gradient
+ophanion_absorption_rate
 \end{verbatim}
 
 \subsection{Operational Procedures}
@@ -1744,9 +1744,9 @@ torshield_absorption_rate
 \subsubsection{Under Attack}
 
 \begin{enumerate}
-\item Monitor \texttt{torshield\_absorption\_rate} metric
+\item Monitor \texttt{ophanion\_absorption\_rate} metric
 \item If $< 0.9$: system is learning, allow 5-10 minutes
-\item Check \texttt{torshield\_delta\_gradient} $\to$ should decrease
+\item Check \texttt{ophanion\_delta\_gradient} $\to$ should decrease
 \item If gradient plateaus $> 0.01$: increase \texttt{learning\_rate\_alpha}
 \item Manual threshold override: edit config, send SIGHUP to reload
 \end{enumerate}
@@ -1755,10 +1755,10 @@ torshield_absorption_rate
 
 If legitimate users report connection issues:
 \begin{enumerate}
-\item Check \texttt{torshield\_circuits\_absorbed / \_total} ratio
+\item Check \texttt{ophanion\_circuits\_absorbed / \_total} ratio
 \item If $> 0.98$: threshold too aggressive
 \item Lower \texttt{initial\_threshold} from 0.5 to 0.3
-\item Restart TORSHIELD
+\item Restart OPHANION
 \item Monitor for 1 hour
 \end{enumerate}
 
@@ -1766,8 +1766,8 @@ If legitimate users report connection issues:
 
 \begin{enumerate}
 \item \textbf{Control Port Security}: Ensure Tor control port only accessible locally
-\item \textbf{Resource Limits}: Set ulimit for TORSHIELD process
-\item \textbf{Log Sanitization}: TORSHIELD never logs circuit content, only timing metadata
+\item \textbf{Resource Limits}: Set ulimit for OPHANION process
+\item \textbf{Log Sanitization}: OPHANION never logs circuit content, only timing metadata
 \item \textbf{Fail-Open vs Fail-Closed}: Configure failure mode in \texttt{config.toml}
 \item \textbf{Updates}: Subscribe to security advisories, update regularly
 \end{enumerate}
@@ -1781,7 +1781,7 @@ If legitimate users report connection issues:
 \begin{itemize}
 \item Ubuntu 22.04 LTS, 4 CPU cores, 8 GB RAM
 \item Tor 0.4.8.7
-\item TORSHIELD v1.0
+\item OPHANION v1.0
 \item Simulated marketplace backend (Nginx)
 \end{itemize}
 
@@ -1805,7 +1805,7 @@ Type C (Hybrid) & 800k circuits/hr & 96.1\% & $< 10^{-6}$ \\
 \textbf{Combined} & 2M circuits/hr & \textbf{95.7\%} & $< 10^{-6}$ \\
 \bottomrule
 \end{tabular}
-\caption{TORSHIELD Defense Performance}
+\caption{OPHANION Defense Performance}
 \end{table}
 
 \subsection{Latency Impact}
@@ -1814,7 +1814,7 @@ Type C (Hybrid) & 800k circuits/hr & 96.1\% & $< 10^{-6}$ \\
 \centering
 \begin{tabular}{@{}lcc@{}}
 \toprule
-\textbf{Metric} & \textbf{Without TORSHIELD} & \textbf{With TORSHIELD} \\ \midrule
+\textbf{Metric} & \textbf{Without OPHANION} & \textbf{With OPHANION} \\ \midrule
 Median Latency & 320 ms & 361 ms (+41 ms) \\
 P95 Latency & 580 ms & 625 ms (+45 ms) \\
 P99 Latency & 890 ms & 941 ms (+51 ms) \\
@@ -1874,7 +1874,7 @@ Network I/O & 0.5 Mbps & 12 Mbps \\
 Disk I/O & Negligible & Negligible \\
 \bottomrule
 \end{tabular}
-\caption{TORSHIELD Resource Consumption}
+\caption{OPHANION Resource Consumption}
 \end{table}
 
 \subsection{Comparison with Existing Defenses}
@@ -1887,7 +1887,7 @@ Disk I/O & Negligible & Negligible \\
 PoW (v3-auth-01) & 72\% & 15\% & 180 ms \\
 Rate Limiting & 45\% & 8\% & 20 ms \\
 Onion Balance & N/A & 0\% & 50 ms \\
-\textbf{TORSHIELD} & \textbf{95.7\%} & \textbf{$<10^{-6}$} & \textbf{45 ms} \\
+\textbf{OPHANION} & \textbf{95.7\%} & \textbf{$<10^{-6}$} & \textbf{45 ms} \\
 \bottomrule
 \end{tabular}
 \caption{Defense Mechanism Comparison}
@@ -1903,7 +1903,7 @@ Onion Balance & N/A & 0\% & 50 ms \\
 \item Controls $N_{\text{bot}} \leq 10^6$ Tor clients (bots)
 \item Can generate arbitrary circuit patterns
 \item Has full knowledge of Tor protocol
-\item Does \textit{not} compromise Tor relays or TORSHIELD process
+\item Does \textit{not} compromise Tor relays or OPHANION process
 \item Does \textit{not} perform timing attacks on end-to-end traffic
 \end{itemize}
 
@@ -1917,18 +1917,18 @@ Onion Balance & N/A & 0\% & 50 ms \\
 \subsection{Security Properties}
 
 \begin{theorem}[Anonymity Preservation]
-TORSHIELD does not reduce the anonymity set of legitimate users compared to baseline Tor Hidden Services.
+OPHANION does not reduce the anonymity set of legitimate users compared to baseline Tor Hidden Services.
 \end{theorem}
 
 \begin{proof}
-TORSHIELD operates solely on circuit-level behavioral metadata:
+OPHANION operates solely on circuit-level behavioral metadata:
 \begin{itemize}
 \item Cell timing distributions (already observable by entry guards)
 \item Cell type sequences (protocol-level, non-identifying)
 \item Statistical features (aggregate, no per-user identifiers)
 \end{itemize}
 
-TORSHIELD does \textit{not}:
+OPHANION does \textit{not}:
 \begin{itemize}
 \item Access cell content (encrypted end-to-end)
 \item Correlate circuits across sessions
@@ -1936,11 +1936,11 @@ TORSHIELD does \textit{not}:
 \item Share data with external parties
 \end{itemize}
 
-Therefore, the anonymity set remains unchanged: $\mathcal{A}_{\text{TORSHIELD}} = \mathcal{A}_{\text{Tor}}$.
+Therefore, the anonymity set remains unchanged: $\mathcal{A}_{\text{OPHANION}} = \mathcal{A}_{\text{Tor}}$.
 \end{proof}
 
 \begin{theorem}[Attack Resistance]
-Under adaptive adversary with botnet size $N_{\text{bot}} \leq 10^6$, TORSHIELD maintains service availability $\geq 95\%$.
+Under adaptive adversary with botnet size $N_{\text{bot}} \leq 10^6$, OPHANION maintains service availability $\geq 95\%$.
 \end{theorem}
 
 \begin{proof}
@@ -1981,7 +1981,7 @@ Availability requirement satisfied.
 \subsection{Side-Channel Resistance}
 
 \textbf{Timing Side-Channels}:
-TORSHIELD's spectral analysis is robust against timing manipulation:
+OPHANION's spectral analysis is robust against timing manipulation:
 \begin{itemize}
 \item Attack traffic with artificially varied timing still exhibits low coherence
 \item Gabriel Cells learn multi-dimensional patterns, not just individual features
@@ -1989,7 +1989,7 @@ TORSHIELD's spectral analysis is robust against timing manipulation:
 \end{itemize}
 
 \textbf{Resource Exhaustion}:
-TORSHIELD's own resource consumption is bounded:
+OPHANION's own resource consumption is bounded:
 \begin{itemize}
 \item Spectral computation: $O(n \log n)$ per circuit, $n \leq 1000$ cells
 \item Gabriel Cell updates: $O(d)$ where $d = 128$ (constant)
@@ -2010,9 +2010,9 @@ Current implementation analyzes circuits at single timescale. Future versions wi
 \item \textbf{Temporal Information Crystals}: Full TIC implementation from theoretical model
 \end{itemize}
 
-\subsubsection{Distributed TORSHIELD}
+\subsubsection{Distributed OPHANION}
 
-For high-traffic marketplaces, distribute TORSHIELD across multiple nodes:
+For high-traffic marketplaces, distribute OPHANION across multiple nodes:
 \begin{itemize}
 \item Shared Gabriel Cell cluster via gossip protocol
 \item Distributed resonance field updates
@@ -2033,18 +2033,18 @@ Integrate ZK proofs for explicit user legitimacy attestation:
 \begin{enumerate}
 \item \textbf{Optimal Cell Count}: Current $N = 64$ cells is empirically chosen. Mathematical derivation of optimal $N^*$ as function of traffic distribution.
 
-\item \textbf{Adversarial ML Resistance}: Can adaptive adversaries trained via reinforcement learning evade TORSHIELD? Develop game-theoretic defense strategies.
+\item \textbf{Adversarial ML Resistance}: Can adaptive adversaries trained via reinforcement learning evade OPHANION? Develop game-theoretic defense strategies.
 
 \item \textbf{Quantum-Resistant Resonance}: Extend spectral fingerprinting to post-quantum security model.
 
-\item \textbf{Cross-Service Correlation}: Prevent attackers from correlating TORSHIELD-protected services via timing analysis.
+\item \textbf{Cross-Service Correlation}: Prevent attackers from correlating OPHANION-protected services via timing analysis.
 \end{enumerate}
 
 \subsection{Integration with Emerging Technologies}
 
 \subsubsection{URAN Protocol Synergy}
 
-TORSHIELD can integrate with URAN (Universal Resonant Anonymous Network):
+OPHANION can integrate with URAN (Universal Resonant Anonymous Network):
 \begin{itemize}
 \item Replace Tor circuits with URAN resonance channels
 \item Full address-free operation
@@ -2063,7 +2063,7 @@ Implement spectral fingerprinting in FPGA/ASIC:
 \newpage
 \section{Conclusion}
 
-TORSHIELD represents the first production-ready, mathematically rigorous DDoS defense system specifically designed for Tor Hidden Services. By adapting the Resonant Monolith architecture to the unique constraints of onion routing, TORSHIELD achieves unprecedented attack absorption rates ($> 95\%$) while maintaining zero false positives and minimal latency impact.
+OPHANION represents the first production-ready, mathematically rigorous DDoS defense system specifically designed for Tor Hidden Services. By adapting the Resonant Monolith architecture to the unique constraints of onion routing, OPHANION achieves unprecedented attack absorption rates ($> 95\%$) while maintaining zero false positives and minimal latency impact.
 
 \subsection{Key Contributions}
 
@@ -2092,7 +2092,7 @@ This specification provides everything required for operational deployment:
 
 \subsection{Impact on Darknet Ecosystem}
 
-TORSHIELD enables:
+OPHANION enables:
 \begin{itemize}
 \item \textbf{Marketplace Stability}: 24/7 uptime even under sustained attacks
 \item \textbf{Free Speech Protection}: Resilient platforms for whistleblowers, activists
@@ -2102,7 +2102,7 @@ TORSHIELD enables:
 
 \subsection{Call to Action}
 
-The TORSHIELD project is released as open-source software. We invite:
+The OPHANION project is released as open-source software. We invite:
 \begin{itemize}
 \item \textbf{Hidden Service Operators}: Deploy and provide feedback
 \item \textbf{Security Researchers}: Audit, attack, improve
@@ -2113,7 +2113,7 @@ The TORSHIELD project is released as open-source software. We invite:
 \vspace{1cm}
 \begin{center}
 \textit{Resonance, Invariance, Protection.}\\
-\textbf{TORSHIELD --- Defending the Digital Borderlands}
+\textbf{OPHANION --- Defending the Digital Borderlands}
 \end{center}
 
 \newpage
@@ -2124,7 +2124,7 @@ The TORSHIELD project is released as open-source software. We invite:
 \subsection{Configuration File Specification}
 
 \begin{lstlisting}[language=toml]
-[torshield]
+[ophanion]
 # Number of Gabriel Cells in cluster
 num_gabriel_cells = 64
 
@@ -2163,7 +2163,7 @@ cookie_path = "/var/run/tor/control.authcookie"
 # control_password = "your_password_here"
 
 [service]
-# Port where TORSHIELD listens (receives from Tor)
+# Port where OPHANION listens (receives from Tor)
 listen_port = 8080
 
 # Port where actual hidden service runs
@@ -2183,7 +2183,7 @@ metrics_port = 9090
 verbose_logging = false
 
 # Log file path
-log_file = "/var/log/torshield/torshield.log"
+log_file = "/var/log/ophanion/ophanion.log"
 
 [performance]
 # Worker thread count (0 = auto-detect)
@@ -2201,26 +2201,26 @@ metadata_retention = 3600
 \begin{enumerate}
 \item[$\square$] Install Tor (version 0.4.7+)
 \item[$\square$] Configure Tor control port in \texttt{torrc}
-\item[$\square$] Build TORSHIELD from source
-\item[$\square$] Create TORSHIELD configuration file
+\item[$\square$] Build OPHANION from source
+\item[$\square$] Create OPHANION configuration file
 \item[$\square$] Configure hidden service in \texttt{torrc}
-\item[$\square$] Set up logging directory: \texttt{/var/log/torshield/}
+\item[$\square$] Set up logging directory: \texttt{/var/log/ophanion/}
 \item[$\square$] Configure firewall rules (allow localhost:8080, 8081)
-\item[$\square$] Start TORSHIELD process
+\item[$\square$] Start OPHANION process
 \item[$\square$] Verify Prometheus metrics accessible
 \item[$\square$] Test with benign traffic
 \item[$\square$] Configure monitoring/alerting (Grafana recommended)
 \item[$\square$] Document baseline performance metrics
 \item[$\square$] Establish incident response procedures
 \item[$\square$] Schedule regular log reviews
-\item[$\square$] Subscribe to TORSHIELD security advisories
+\item[$\square$] Subscribe to OPHANION security advisories
 \end{enumerate}
 
 \section{Appendix C: Troubleshooting Guide}
 
 \subsection{Common Issues}
 
-\subsubsection{TORSHIELD won't start}
+\subsubsection{OPHANION won't start}
 
 \textbf{Symptoms}: Process exits immediately after launch
 
@@ -2252,8 +2252,8 @@ sudo lsof -i :8080
 # Edit config.toml
 initial_threshold = 0.3  # Down from 0.5
 
-# Restart TORSHIELD
-sudo systemctl restart torshield
+# Restart OPHANION
+sudo systemctl restart ophanion
 \end{verbatim}
 
 \subsubsection{Low Absorption Rate}
@@ -2295,12 +2295,12 @@ $\lambda$ & Threshold learning rate \\
 
 \subsection{License}
 
-TORSHIELD is released under the MIT License:
+OPHANION is released under the MIT License:
 
 \begin{verbatim}
 MIT License
 
-Copyright (c) 2025 TORSHIELD Project
+Copyright (c) 2025 OPHANION Project
 
 Permission is hereby granted, free of charge, to any person obtaining 
 a copy of this software and associated documentation files (the 
@@ -2322,9 +2322,9 @@ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
 Contributions welcome via GitHub:
 \begin{itemize}
-\item Bug reports: \url{https://github.com/torshield/torshield/issues}
-\item Pull requests: \url{https://github.com/torshield/torshield/pulls}
-\item Security issues: \texttt{security@torshield.org} (PGP key available)
+\item Bug reports: \url{https://github.com/ophanion/ophanion/issues}
+\item Pull requests: \url{https://github.com/ophanion/ophanion/pulls}
+\item Security issues: \texttt{security@ophanion.org} (PGP key available)
 \end{itemize}
 
 \end{document}

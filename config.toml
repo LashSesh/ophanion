@@ -1,7 +1,7 @@
-# TORSHIELD Configuration File
+# OPHANION Configuration File
 # Version 1.0
 
-[torshield]
+[ophanion]
 # Number of Gabriel Cells in the cluster
 # More cells = better pattern recognition but higher memory usage
 # Recommended: 64-128 for typical hidden services
@@ -58,12 +58,12 @@ cookie_path = "/var/run/tor/control.authcookie"
 # control_password = "your_password_here"
 
 [service]
-# Port where TORSHIELD listens (receives from Tor)
+# Port where OPHANION listens (receives from Tor)
 # This should match HiddenServicePort in torrc
 listen_port = 8080
 
 # Port where your actual hidden service runs
-# TORSHIELD forwards legitimate traffic here
+# OPHANION forwards legitimate traffic here
 backend_port = 8081
 
 # Bind address (typically localhost)
@@ -82,7 +82,7 @@ verbose_logging = false
 
 # Log file path
 # Ensure directory exists and is writable
-log_file = "/var/log/torshield/torshield.log"
+log_file = "/var/log/ophanion/ophanion.log"
 
 [performance]
 # Worker thread count

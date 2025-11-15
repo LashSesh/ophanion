@@ -1,17 +1,17 @@
 // threshold.rs
-use crate::{Threshold, config::TorShieldSettings};
+use crate::{Threshold, config::OphanionSettings};
 use parking_lot::RwLock;
 use std::sync::Arc;
 
 pub struct AdaptiveThreshold {
     threshold: Arc<RwLock<Threshold>>,
-    config: TorShieldSettings,
+    config: OphanionSettings,
     absorption_history: Arc<RwLock<Vec<f64>>>,
     coherence_history: Arc<RwLock<Vec<f64>>>,
 }
 
 impl AdaptiveThreshold {
-    pub fn new(config: TorShieldSettings) -> Self {
+    pub fn new(config: OphanionSettings) -> Self {
         let threshold = Threshold::new(
             config.initial_threshold, 
             config.threshold_learning_rate
@@ -72,7 +72,7 @@ mod tests {
     
     #[test]
     fn test_adaptive_threshold() {
-        let config = TorShieldSettings::default();
+        let config = OphanionSettings::default();
         let threshold = AdaptiveThreshold::new(config);
         
         threshold.update(0.8, 0.3);
