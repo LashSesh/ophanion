@@ -2,7 +2,7 @@
 name = "ophanion"
 version = "1.0.0"
 edition = "2021"
-authors = ["Sebastian Klemm]
+authors = ["Sebastian Klemm"]
 description = "Resonant Monolith DDoS Protection for Tor Hidden Services"
 license = "MIT"
 repository = "https://github.com/LashSesh/ophanion"
