@@ -262,44 +262,9 @@ cargo bench
 cargo tarpaulin --out Html
 ```
 
-## Documentation
-
-Complete technical specification available in:
-- `OPHANION_Complete_Specification.pdf` - LaTeX documentation
-- `docs/architecture.md` - System architecture
-- `docs/api.md` - API reference
-
-## Contributing
-
-Contributions welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Submit pull request
-
-## Security
-
-**Report security vulnerabilities to**: security@ophanion.org
-
-**PGP Key**: Available at https://ophanion.org/pgp
-
 ## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
-
-## Citation
-
-If you use OPHANION in research, please cite:
-
-```bibtex
-@software{ophanion2025,
-  title={OPHANION: Resonant Monolith DDoS Protection for Tor Hidden Services},
-  author={OPHANION Team},
-  year={2025},
-  url={https://github.com/ophanion/ophanion}
-}
-```
 
 ## Acknowledgments
 
@@ -309,22 +274,6 @@ Based on theoretical work:
 - FTCSA (Field-Tensor Cognitive Swarm Architecture)
 - Mandorla Eigenstate Fractals (Invariant Information Structures)
 
-## Roadmap
-
-- [ ] v1.1: Full Tor control port integration
-- [ ] v1.2: Zero-knowledge legitimacy proofs
-- [ ] v1.3: Distributed OPHANION clusters
-- [ ] v2.0: URAN protocol integration
-- [ ] v2.1: Hardware FPGA acceleration
-
-## Support
-
-- Documentation: https://docs.ophanion.org
-- Community: https://forum.ophanion.org
-- Issue Tracker: https://github.com/ophanion/ophanion/issues
-
----
-
 **Built with ❤️ for the anonymous web**
-
+"We're taking back the holy land!"
 *Resonance • Invariance • Protection*
