@@ -7,7 +7,7 @@
 
 ## Overview
 
-OPHANION is a production-ready DDoS defense system specifically designed for Tor Hidden Services. Unlike clearnet services that can rely on Cloudflare or AWS Shield, hidden services operate in a hostile environment without centralized mitigation infrastructure.
+OPHANION is a DDoS defense system specifically designed for Tor Hidden Services. Unlike clearnet services that can rely on Cloudflare or AWS Shield, hidden services operate in a hostile environment without centralized mitigation infrastructure.
 
 OPHANION achieves **>95% attack traffic absorption** through:
 
