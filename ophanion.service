@@ -1,6 +1,6 @@
 [Unit]
 Description=OPHANION - Resonant Monolith DDoS Protection for Tor Hidden Services
-Documentation=https://github.com/ophanion/ophanion
+Documentation=https://github.com/LashSesh/ophanion
 After=network-online.target tor.service
 Wants=network-online.target
 Requires=tor.service
